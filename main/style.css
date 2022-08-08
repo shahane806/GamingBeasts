@@ -1,0 +1,79 @@
+body
+{
+    background-color: whitesmoke;
+}
+*{
+    font-size: medium;
+}
+td{
+    padding:55px;
+    margin:33px;
+}
+h3{
+    margin:33px;
+}
+.audio{
+    margin:33px;
+    padding:33px;
+}
+.card{
+    margin: auto;
+    margin-top: 2rem;
+}
+.card2{
+    margin: auto;
+    margin-top: 2rem;
+}
+.container{
+    background-color: whitesmoke;
+    height:fit-content;
+    width: fit-content;
+}
+@media only screen and (max-width:575px) {
+    .card{
+        margin:6px;
+    margin-top: 33px;
+    width:15rem;
+
+    }
+    .card2{
+        margin: 7px;
+        margin-top: 0px;
+        width: 4rem;
+
+    }
+    .content{
+        padding: 5px;
+    font-size: 10px;
+    /* text-align: center; */
+    align-items: center;
+    justify-content: center;
+    }
+    td{
+        padding:5px;
+    }
+    
+    .fileup{
+        margin:36px;
+    }
+    .btn{
+            width: 12rem;
+    margin: 10px;
+    padding: 5px;
+    }
+    .card-text{
+        text-align: center;
+        align-items: center;
+        margin: auto;
+    }
+   .audio{
+    margin:0px;
+    padding:0px;
+   }
+   .card-text{
+    font-size: medium;
+   }
+   .play{
+    width: 58px;
+   }
+}
