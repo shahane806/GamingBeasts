@@ -28,6 +28,8 @@ h3{
     background-color: whitesmoke;
     height:fit-content;
     width: fit-content;
+    padding-right: 0px;
+    padding-left: 0px;
 }
 @media only screen and (max-width:575px) {
     .card{
@@ -53,9 +55,7 @@ h3{
         padding:5px;
     }
     
-    .fileup{
-        margin:36px;
-    }
+    
     .btn{
             width: 12rem;
     margin: 10px;
@@ -76,6 +76,16 @@ h3{
    .play{
     width: 58px;
    }
+   .container{
+    background-color: whitesmoke;
+    height:fit-content;
+    width: fit-content;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+    .fileup{
+        margin:0px;
+    }
 }
 
 
