@@ -109,7 +109,7 @@ body {
 }
 
 .active {
-  background-color: #04AA6D;
+  
   color: white;
 }
 </style>
