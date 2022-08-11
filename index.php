@@ -132,6 +132,11 @@ body {
       <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
+     <button class="btn btn-outline-success my-2 my-sm-0" onclick="myF()">
+    Upload
+  </button>
+    
+
   </div>
  
 </nav>
@@ -165,7 +170,7 @@ echo $disc;
 <hr>
 <div class = "container">
 
-<form  style = "display:block;" class = "fileup"  method="post" enctype="multipart/form-data">
+<form  style = "display:none;" id="upload" class = "fileup"  method="post" enctype="multipart/form-data">
     <h5 class="card-text">Upload File : </h5>
         
     <input class = "btn btn-primary" type="file" name="audiofile" id="audiofile" onchange="uploadFile()"/>
@@ -322,5 +327,29 @@ function myFunction() {
   } else {
     x.style.display = "block";
   }
+}
+function myF()
+{
+    
+
+     var d = document.getElementById("upload").style.display;
+     
+     switch(d)
+     {
+         case "block" : {
+             document.getElementById("upload").style.display = "none";
+         }
+         break;
+         case "none" : {
+             document.getElementById("upload").style.display = "block";
+         }
+         break;
+         default : {
+             document.getElementById("upload").style.display = "none";
+         }
+         break;
+     }
+    
+    
 }
 </script>
