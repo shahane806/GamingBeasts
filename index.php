@@ -42,7 +42,7 @@ if( $disc==$search)
     {
         $name_file = $_FILES['audiofile']['name'];
         $audiofile = $disc = $name_file;
-        echo $cover = $name_file.'.png';
+         $cover = $name_file.'.png';
         $tmp_name = $_FILES['audiofile']['tmp_name'];
         $local_image = "uploaded/";
         move_uploaded_file($tmp_name,$local_image.$name_file);
@@ -50,9 +50,9 @@ if( $disc==$search)
         echo "name_file : ".$name_file1."<br>";
          
        $tmp_name1 = $_FILES['cover']['tmp_name'];
-       echo "tmp_name : ".$tmp_name1."<br>";
+       //echo "tmp_name : ".$tmp_name1."<br>";
       $local_image1 = "uploaded/";
-      echo "local_image : ".$local_image1."<br>";
+     // echo "local_image : ".$local_image1."<br>";
       
        move_uploaded_file($tmp_name1,$local_image1.$cover);
     
@@ -165,7 +165,7 @@ echo $disc;
 <hr>
 <div class = "container">
 
-<form  style = "display:none;" class = "fileup"  method="post" enctype="multipart/form-data">
+<form  style = "display:block;" class = "fileup"  method="post" enctype="multipart/form-data">
     <h5 class="card-text">Upload File : </h5>
         
     <input class = "btn btn-primary" type="file" name="audiofile" id="audiofile" onchange="uploadFile()"/>
