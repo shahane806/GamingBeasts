@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+if(!isset($_SESSION['counter']))
+    {
+       $_SESSION['counter'] = 0;
+    }
+
+?>
+
 <html lang="en">
  
   <head>
@@ -7,6 +17,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="style.css">
     <title>GamingBeasts</title>
   </head>
@@ -16,6 +27,7 @@ $cover = 0;
 $cpyright = 0;
 $disc = 0;
 $search = 0;
+
 if(isset($_GET['search']))
 {
     $search = $_GET['search'];
@@ -140,33 +152,9 @@ body {
   </div>
  
 </nav>
-<hr>
-     
-<div class="container"style="width: 18rem; "> 
-  <div class="card" >
-    <img class="card-img-top" src="uploaded/<?php echo $disc;?>.png" alt="Card image cap">
-    <div class="card-body">
-      
-      <h5 class="card-title"><?php echo     $disc;?></h5>
-      <p class="card-text"><?php echo     $disc;?></p>
-      <a href="<?php echo $cpyright;?>" class="btn btn-primary">Download</a>
-    </div>
-    </div>
-    </div>
-  
-    <hr>
-    <div class="container">
-    <div class="audio">
-      
-        <audio controls autoplay>
-            <source src="uploaded/<?php
-echo $disc;
-?>" type="audio/mpeg" />
-        </audio>
 
-        
-    </div>
-</div>
+  
+    
 <hr>
 <div class = "container">
 
@@ -204,9 +192,9 @@ class dbopen
     public function opendb()
     {
         $this->server = "localhost";
-        $this->pass   = "(2%u4ZF7_F+UpLOe";
-        $this->user   = "id19391166_gbm";
-        $this->dbname = "id19391166_af";
+        $this->pass   = "";
+        $this->user   = "root";
+        $this->dbname = "af";
       
         $this->conn = new mysqli($this->server,$this->user,$this->pass,$this->dbname) or die("Database Not connected");
         //echo "Database connected<br>";
@@ -224,7 +212,7 @@ class dbopen
 }
 class mf extends dbopen
 {
-    
+    protected $songs1;
     public function insertfile($cover,$filename,$cpyright)
     {
            $conn  = parent::getcon();
@@ -237,10 +225,28 @@ if ($conn->query($sql) === TRUE) {
 }
     
     }
+    public function fetchSongs()
+    {
+      $conn  = parent::getcon();
+      $songs1 = array();
+  
+      $sql = "Select*from af;";
+      $r     = $conn->query($sql);
+      while ($row =$r->fetch_assoc()) {
+      
+      $value =  $row['disc'];
+      
+ array_push($songs1,$value);
+ }
+
+      
+       return $songs1;
+    }
     public function dispfile()
     {
         
         $conn  = parent::getcon();
+       
         $sql = "Select*from af;";
         $r     = $conn->query($sql);
         echo"<hr><div class = 'container'>";
@@ -250,8 +256,7 @@ if ($conn->query($sql) === TRUE) {
                      $cov  = $row['cover'];
                    $value =  $row['disc'];
                    $value2 =  $row['ncs_cpyright'];
-                
-  
+             
                 echo '<tr><td><div class="card2"><img class="card-img-top" src="uploaded/'.$cov.' " alt="Card image cap"></div><hr></td><td class= "content"> '.$value.' : ';
                 echo "</td><td><a style='margin-left:33px;' class='btn play btn-primary' href = 'index.php?cover=".$cov."&&search=".$value."&&cpyright=".$value2."'> play</a><br/><hr></td></tr>";
                
@@ -260,14 +265,96 @@ if ($conn->query($sql) === TRUE) {
         echo "</div>";
 
         
-       
     }
+}
+class songs extends mf
+{
+   
+   public function Songs($songsmain,$search)
+   {
+     
+     $cnt =  count($songsmain);
+     if (isset($_GET['playSongs'])) {
+      $playSongs = $_GET['playSongs'];  
+  }
+    
+    //  echo $_SESSION['counter'];
+     if($_SESSION['counter'] <0)
+     {
+      $_SESSION['counter'] = 0;
+     }
+     else if($_SESSION['counter']>$cnt)
+     {
+      $_SESSION['counter'] = $cnt;
+     }
+    //  echo $playSongs;
+      if ($_SESSION['counter'] >= 0) {
+        if ($playSongs == "last_page") {
+        $_SESSION['counter'] += 1;
+        $c = $_SESSION['counter'];
+        $search = $songsmain[$c];
+          } else if ($playSongs == "first_page") {
+              $_SESSION['counter'] -= 1;
+              $c = $_SESSION['counter'];
+              $search = $songsmain[$c];
+          }
+           else if ($playSongs == "fast_rewind") {
+              $_SESSION['counter'] = 0;
+              $c = $_SESSION['counter'];
+              $search = $songsmain[$c];
+          }
+           else if ($playSongs == "fast_forward") {
+              $_SESSION['counter'] = $cnt-1;
+              $c = $_SESSION['counter'];
+              $search = $songsmain[$c];
+          }
+      }
+    
+      
+      
+  
+     
+
+     echo '<hr>
+     
+     <div class="container"style="width: 18rem; "> 
+       <div class="card" >
+         <img class="card-img-top" src="uploaded/'.$search.'.png" alt="Card image cap">
+         <div class="card-body">
+           
+           <h5 class="card-title">'.  $search.'</h5>
+           <p class="card-text">'.$search.'</p>
+           <a href="uploaded/'.$search.'" class="btn btn-primary">Download</a>
+         </div>
+         </div>
+         </div>
+         <hr>
+     <div class="container">
+     <div class="audio">
+     <form class="form-inline my-2 my-lg-0">
+                   <input class="material-symbols-outlined btn-primary" name="playSongs" type="submit" value = "fast_rewind"/>
+                   <input class="material-symbols-outlined btn-primary"  name="playSongs"type="submit" value = "first_page"/>
+             </form>
+         <audio controls autoplay>
+             <source src="uploaded/'.
+  $search.'
+ " type="audio/mpeg" />
+         </audio>
+ 
+         <form class="form-inline my-2 my-lg-0">
+                     <input class="material-symbols-outlined btn-primary" name="playSongs" type="submit" value = "last_page"/>
+                   <input class="material-symbols-outlined btn-primary"  name="playSongs"type="submit" value = "fast_forward"/>
+                   </form>
+     </div>
+ </div>';
+   }
+
 }
 
 
 
 
-$ob = new mf();
+$ob = new songs();
 $ob->opendb();
 if($audiofile != 0 or $audiofile != NULL)
 {
@@ -275,8 +362,9 @@ if($audiofile != 0 or $audiofile != NULL)
     
     $ob->insertfile($cover,$audiofile,$cpyright);
 }
-
-$ob->dispfile();
+$s  = $ob->fetchSongs();
+@$ob->Songs($s,$search);
+@$ob->dispfile();
 $ob->closedb();
 ?>
 <script>
