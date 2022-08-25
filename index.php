@@ -27,7 +27,6 @@ $cover = 0;
 $cpyright = 0;
 $disc = 0;
 $search = 0;
-
 if(isset($_GET['search']))
 {
     $search = $_GET['search'];
@@ -153,7 +152,6 @@ body {
  
 </nav>
 
-  
     
 <hr>
 <div class = "container">
@@ -192,9 +190,9 @@ class dbopen
     public function opendb()
     {
         $this->server = "localhost";
-        $this->pass   = "";
-        $this->user   = "root";
-        $this->dbname = "af";
+      $this->pass   = "(2%u4ZF7_F+UpLOe";
+      $this->user   = "id19391166_gbm";
+      $this->dbname = "id19391166_af";
       
         $this->conn = new mysqli($this->server,$this->user,$this->pass,$this->dbname) or die("Database Not connected");
         //echo "Database connected<br>";
@@ -270,7 +268,7 @@ if ($conn->query($sql) === TRUE) {
 class songs extends mf
 {
    
-   public function Songs($songsmain,$search)
+   public function Songs1($songsmain,$search)
    {
      
      $cnt =  count($songsmain);
@@ -297,17 +295,30 @@ class songs extends mf
               $_SESSION['counter'] -= 1;
               $c = $_SESSION['counter'];
               $search = $songsmain[$c];
+              if($c == -1)
+              {
+              
+                $search = $songsmain[$c+1];
+              }
           }
            else if ($playSongs == "fast_rewind") {
-              $_SESSION['counter'] = 0;
+            $_SESSION['counter'] = 0;
               $c = $_SESSION['counter'];
               $search = $songsmain[$c];
+              
           }
            else if ($playSongs == "fast_forward") {
               $_SESSION['counter'] = $cnt-1;
               $c = $_SESSION['counter'];
               $search = $songsmain[$c];
+          }if($c >= $cnt)
+          {
+        
+            $search = $songsmain[$cnt-1];
           }
+         
+          
+       
       }
     
       
@@ -363,50 +374,12 @@ if($audiofile != 0 or $audiofile != NULL)
     $ob->insertfile($cover,$audiofile,$cpyright);
 }
 $s  = $ob->fetchSongs();
-@$ob->Songs($s,$search);
-@$ob->dispfile();
+@$ob->Songs1($s,$search);
+$ob->dispfile();
 $ob->closedb();
 ?>
-<script>
-    function _(el) {
-  return document.getElementById(el);
-}
 
-function uploadFile() {
-  var file = _("file1").files[0];
-  // alert(file.name+" | "+file.size+" | "+file.type);
-  var formdata = new FormData();
-  formdata.append("file1", file);
-  var ajax = new XMLHttpRequest();
-  ajax.upload.addEventListener("progress", progressHandler, false);
-  ajax.addEventListener("load", completeHandler, false);
-  ajax.addEventListener("error", errorHandler, false);
-  ajax.addEventListener("abort", abortHandler, false);
-  ajax.open("POST", "file_upload_parser.php"); // http://www.developphp.com/video/JavaScript/File-Upload-Progress-Bar-Meter-Tutorial-Ajax-PHP
-  //use file_upload_parser.php from above url
-  ajax.send(formdata);
-}
-
-function progressHandler(event) {
-  _("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
-  var percent = (event.loaded / event.total) * 100;
-  _("progressBar").value = Math.round(percent);
-  _("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
-}
-
-function completeHandler(event) {
-  _("status").innerHTML = event.target.responseText;
-  _("progressBar").value = 0; //wil clear progress bar after successful upload
-}
-
-function errorHandler(event) {
-  _("status").innerHTML = "Upload Failed";
-}
-
-function abortHandler(event) {
-  _("status").innerHTML = "Upload Aborted";
-}
-</script>
+   
 <script>
 function myFunction() {
   var x = document.getElementById("myLinks");
@@ -440,4 +413,4 @@ function myF()
     
     
 }
-</script>
+</script> 
