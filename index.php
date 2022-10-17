@@ -125,7 +125,7 @@ body
        flex:0.4;
     }
 .SongContainer{
-    width: 24rem;
+    width: 15rem;
 }
 </style>
   <center>
