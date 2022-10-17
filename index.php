@@ -26,7 +26,7 @@ $audiofile = 0;
 $cover = 0;
 $cpyright = 0;
 $disc = 0;
-$search = 0;
+$search = "0.mp3";
 if(isset($_GET['search']))
 {
     $search = $_GET['search'];
@@ -75,53 +75,57 @@ if( $disc==$search)
 
 ?>
 <style>
-body {
-  font-family: Arial, Helvetica, sans-serif;
+
+body
+{
+   background:linear-gradient(purple,black,black);
+   color:white;
 }
 
-.mobile-container {
-  max-width: 480px;
-  margin: auto;
-  background-color: #555;
-  height: 500px;
-  color: white;
-  border-radius: 10px;
+.container{
+    background-color:transparent;
+   
+    height:fit-content;
+    width: fit-content;
+    padding-right: 0px;
+    padding-left: 0px;
 }
-
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-  position: relative;
+.card{
+    background-color:transparent;
 }
+ .audio{
+        display: flex;
+        width:100%;
+    align-items: center;
+    margin:0px;
+    background-color:black;
+    position: fixed;
+    border-radius:3px;
+    left:0px;
+    right: auto;
+    bottom:0px;
+    }
+    input[name="playSongs"]{
+        width:50%;
+        text-aligh:center;
+        border-radius:15px;
+    }
+    .form1{
+        flex:0.4;
+        margin:auto;
+    }
+    .formM{
+       
+      
+        flex:.8;
 
-.topnav #myLinks {
-  display: none;
-}
-
-.topnav a {
-  color: white;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-  display: block;
-}
-
-.topnav a.icon {
-  background: black;
-  display: block;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.active {
-  
-  color: white;
+        
+    }
+    .form2{
+       flex:0.4;
+    }
+.SongContainer{
+    width: 24rem;
 }
 </style>
   <center>
@@ -255,7 +259,7 @@ if ($conn->query($sql) === TRUE) {
                    $value =  $row['disc'];
                    $value2 =  $row['ncs_cpyright'];
              
-                echo '<tr><td><div class="card2"><img class="card-img-top" src="uploaded/'.$cov.' " alt="Card image cap"></div><hr></td><td class= "content"> '.$value.' : ';
+                echo '<tr style="background-color:transparent"><td><div class="card2"><img class="card-img-top" src="uploaded/'.$cov.' " alt="Card image cap"></div><hr></td><td class= "content"> '.$value.' : ';
                 echo "</td><td><a style='margin-left:33px;' class='btn play btn-primary' href = 'index.php?cover=".$cov."&&search=".$value."&&cpyright=".$value2."'> play</a><br/><hr></td></tr>";
                
         }
@@ -328,13 +332,13 @@ class songs extends mf
 
      echo '<hr>
      
-     <div class="container"style="width: 18rem; "> 
+     <div class="container SongContainer"> 
        <div class="card" >
          <img class="card-img-top" src="uploaded/'.$search.'.png" alt="Card image cap">
          <div class="card-body">
            
            <h5 class="card-title">'.  $search.'</h5>
-           <p class="card-text">'.$search.'</p>
+        
            <a href="uploaded/'.$search.'" class="btn btn-primary">Download</a>
          </div>
          </div>
@@ -342,17 +346,17 @@ class songs extends mf
          <hr>
      <div class="container">
      <div class="audio">
-     <form class="form-inline my-2 my-lg-0">
+     <form class="form-inline my-2 my-lg-0 controlPannel form1">
                    <input class="material-symbols-outlined btn-primary" name="playSongs" type="submit" value = "fast_rewind"/>
                    <input class="material-symbols-outlined btn-primary"  name="playSongs"type="submit" value = "first_page"/>
              </form>
-         <audio controls autoplay>
+         <audio class="formM" controls autoplay>
              <source src="uploaded/'.
   $search.'
  " type="audio/mpeg" />
          </audio>
  
-         <form class="form-inline my-2 my-lg-0">
+         <form class="form-inline my-2 my-lg-0 controlPannel form2">
                      <input class="material-symbols-outlined btn-primary" name="playSongs" type="submit" value = "last_page"/>
                    <input class="material-symbols-outlined btn-primary"  name="playSongs"type="submit" value = "fast_forward"/>
                    </form>
