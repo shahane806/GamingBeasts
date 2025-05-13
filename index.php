@@ -160,7 +160,7 @@ body
 <hr>
 <div class = "container">
 
-<form  style = "display:none;" id="upload" class = "fileup"  method="post" enctype="multipart/form-data">
+<!-- <form  style = "display:none;" id="upload" class = "fileup"  method="post" enctype="multipart/form-data">
     <h5 class="card-text">Upload File : </h5>
         
     <input class = "btn btn-primary" type="file" name="audiofile" id="audiofile" onchange="uploadFile()"/>
@@ -179,7 +179,7 @@ body
     
     <input type="text" name="cpyright" id="cpyright"/>
     <input class = "btn btn-primary" type="submit"  value="upload" />
-</form>
+</form> -->
 
 </div>
    
